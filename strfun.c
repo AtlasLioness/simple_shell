@@ -1,11 +1,12 @@
 #include "main.h"
+
 /**
  * _strdup - it duplicates a string
  * @str: The pointer to string to duplicate
  *
  * Return: The pointer to the duplicated string
  */
-char *_strdup(const char *str)
+char *_strdup(char *str)
 {
 	int length;
 	char *dup_str;
@@ -56,22 +57,13 @@ int _strcmp(char *s1, char *s2)
  */
 char *_strcat(char *dest, char *src)
 {
-	int c;
-	int c2;
+	int i, j;
 
-	c = 0;
-	while (dest[c] != '\0')
-	{
-		c++;
-	}
-	c2 = 0;
-	while (src[c2] != '\0')
-	{
-		dest[c] = src[c];
-		c++;
-		c2++;
-	}
-	dest[c] = '\0';
+	for (i = 0; dest[i] != '\0'; i++)
+		;
+	for (j = 0; src[j] != '\0'; j++, i++)
+		dest[i] = src[j];
+	dest[i] = '\0';
 	return (dest);
 }
 /**
@@ -88,5 +80,29 @@ int _strlen(char *s)
 	{
 		longi++;
 		s++;
+	}
 	return (longi);
+}
+
+/**
+ * _strpliter - gets number of words in string
+ * @s: pointer to string
+ *
+ * Return: number of words
+ */
+int _strpliter(char *s)
+{
+	int i, flag = 1, counter = 0;
+
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] != ' ' && flag == 1)
+		{
+			counter = counter + 1;
+			flag = 0;
+		}
+		if (s[i + 1] == ' ')
+			flag = 1;
+	}
+	return (counter);
 }

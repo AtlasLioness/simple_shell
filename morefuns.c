@@ -12,7 +12,7 @@ char *_getenviron(const char *name)
 
 	for (a = 0; environ[a]; a++)
 	{
-		env = _comparepath(name, environ[a]);
+		env = comparepath(name, environ[a]);
 		if (env == 0)
 		{
 			return (environ[a]);
@@ -41,8 +41,6 @@ int _environ(void)
  */
 void _puts(char *str)
 {
-	int c;
-
 	while (*str != '\0')
 	{
 		_putchar(*str + 0);
@@ -60,19 +58,37 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
-/**
- * _memset - it fills a block of memory with a specific value
- * @s: pointer to the memory to be filled
- * @b: character to fill the memory with
- * @n: Number of bytes to be filled.
- *
- * Return: the pointer to the filled memory
- */
-char *_memset(char *s, char b, unsigned int n)
-{
-	unsigned int a;
 
-	for (a = 0; a < n; a++)
-		s[a] = b;
-	return (s);
+/**
+ * builtinschecker - checks if string is a built-in
+ * @av: pointer to arguments
+ * @buff: pointer to string
+ * @exitstatus: execve exit status
+ *
+ * Return: 1 or 0 if buff is equal to env or not
+ */
+int builtinschecker(char **av, char *buff, int exitstatus)
+{
+	int i;
+
+	if (_strcmp(av[0], "env") == 0)
+	{
+		_environ();
+		for (i = 0; av[i]; i++)
+			free(av[i]);
+		free(av);
+		free(buff);
+
+		return (1);
+	}
+	else if (_strcmp(av[0], "exit") == 0)
+	{
+		for (i = 0; av[i]; i++)
+			free(av[i]);
+		free(av);
+		free(buff);
+		exit(exitstatus);
+	}
+	else
+		return (0);
 }
