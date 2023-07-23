@@ -1,23 +1,24 @@
 #include "main.h"
 /**
- * _getenv - it gets the PATH
+ * _getenviron - it gets the PATH
  * @name: the environ variable name
  *
  * Return: the pointer to the PATH, or NULL if fails
  */
-char *_getenv(const char *name)
+char *_getenviron(const char *name)
 {
-	int i;
-	int result;
+	int a;
+	int env;
 
-	for (i = 0; environ[i]; i++)
+	for (a = 0; environ[a]; a++)
 	{
-		result = _PATHstrcmp(name, environ[i]);
-		if (result == 0)
+		env = _comparepath(name, environ[a]);
+		if (env == 0)
 		{
-			return (environ[i]);
+			return (environ[a]);
 		}
 	}
+
 	return (NULL);
 }
 /**

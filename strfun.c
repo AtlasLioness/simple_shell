@@ -8,23 +8,23 @@
 char *_strdup(const char *str)
 {
 	int length;
-	char *dest_str;
+	char *dup_str;
 
 	if (str == NULL)
 		return (NULL);
 	for (length = 0; str[length] != '\0'; length++)
 		;
-	dest_str = malloc(sizeof(char) * (length + 1));
-	if (dest_str == NULL)
+	dup_str = malloc(sizeof(char) * (length + 1));
+	if (dup_str == NULL)
 		return (NULL);
 
 	for (length = 0; str[length] != '\0'; length++)
 	{
-		dest_str[length] = str[length];
+		dup_str[length] = str[length];
 	}
-	dest_str[length] = '\0';
+	dup_str[length] = '\0';
 
-	return (dest_str);
+	return (dup_str);
 }
 /**
  * _strcmp - it compares two strings
