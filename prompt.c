@@ -65,11 +65,9 @@ char *reader(void)
 char *path(char **av, char *PATH, char *cpy)
 {
 	struct stat s;
-	char *fullpath = NULL, *buff = NULL;
-	char *token;
+	char *fullpath = NULL, *buff = NULL, *token;
 	static char temp[256];
-	int i = 0, tokenlen = 0;
-	int counter = 0, flag = 0;
+	int i = 0, tokenlen = 0, counter = 0, flag = 0;
 
 	cpy = NULL;
 	cpy = _strdup(PATH);

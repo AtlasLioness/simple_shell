@@ -13,7 +13,7 @@
 #include <fcntl.h>
 #include <signal.h>
 
-extern char **environ; 
+extern char **environ;
 
 /* String Functions */
 
@@ -28,7 +28,7 @@ int _strpliter(char *s);
 
 int prompt(void);
 char *reader(void);
-char *path(char **av, char *PATH, char*cpy);
+char *path(char **av, char *PATH, char *cpy);
 int _forku(char **av, char *buff, char *path);
 int builtinschecker(char **av, char *buff, int status);
 
