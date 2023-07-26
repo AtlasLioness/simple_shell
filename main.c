@@ -7,7 +7,7 @@
 int main(void)
 {
 	char *PATH = NULL, *fullpath = NULL;
-	char *buff = NULL, *cpy = NULL;
+	char *buff = NULL, *copy = NULL;
 	char **av;
 	int exitstatus = 0;
 
@@ -20,7 +20,7 @@ int main(void)
 	{
 		av = NULL;
 		prompt();
-		buff = reader();
+		buff = _reader();
 		if (*buff != '\0')
 		{
 			av = tokenizer(buff);
@@ -29,7 +29,7 @@ int main(void)
 				free(buff);
 				continue;
 			}
-			fullpath = path(av, PATH, cpy);
+			fullpath = _path(av, PATH, copy);
 			if (builtinschecker(av, buff, exitstatus) == 1)
 				continue;
 			exitstatus = _forku(av, buff, fullpath);

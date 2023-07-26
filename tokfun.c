@@ -11,9 +11,10 @@ char **tokenizer(char *buff)
 	char *tok, *delimiter = " \n";
 	char **result;
 
-	counter = _strpliter(buff);
+	counter = _strplitter(buff);
 	if (!counter)
 		return (NULL);
+
 	result = malloc((counter + 1) * sizeof(char *));
 	if (result == NULL)
 		exit(1);
@@ -29,12 +30,12 @@ char **tokenizer(char *buff)
 }
 
 /**
- * splitter - counts the number of paths in PATH
+ * _splitter - counts the number of paths in PATH
  * @s: poinbter to PATH string
  *
  * Return: number of directories to check in PATH
  */
-int splitter(char *s)
+int _splitter(char *s)
 {
 	int i;
 	int flag = 1, counter = 0;
@@ -43,7 +44,7 @@ int splitter(char *s)
 	{
 		if (s[i] != ':' && flag == 1)
 		{
-			counter = counter + 1;
+			counter += 1;
 			flag = 0;
 		}
 		if (s[i + 1] == ':')
@@ -53,14 +54,14 @@ int splitter(char *s)
 }
 
 /**
- * comparepath - finds value of PATH in environ
+ * _comparepath - finds value of PATH in environ
  * @str1: pointer to "PATH"
  * @str2: pointer to environ string
  *
  * Return: 0 on success or +1 if no PATH variable in environ
  */
 
-int comparepath(const char *str1, const char *str2)
+int _comparepath(const char *str1, const char *str2)
 {
 	int i;
 
@@ -69,30 +70,28 @@ int comparepath(const char *str1, const char *str2)
 		if (str1[i] != str2[i])
 			return (-1);
 	}
+
 	return (0);
 }
 
 /**
- * completeconcat - concatenates 3 strings to create a full path to command exe
- * @str: string to store the result of the concatenation
+ * _completeconcat - concatenates 3 str to create a full path to command exe
+ * @str: static array to store the result of the concatenation
  * @av: pointer to command string entered by user
  * @token: pointer to first part of a directory in PATH
  *
  * Return: pointer to the complete path to the command
  */
 
-char *completeconcat(char *str, char **av, char *token)
+char *_completeconcat(char *str, char **av, char *token)
 {
-	int len, len1, len2;
+	int len = 0;
 
 	_memset(str, 0, 256);
-	len1 = _strlen(token);
-	len2 = _strlen(av[0]);
-	len = len1 + len2 + 2;
+	len = _strlen(token) + _strlen(av[0] + 2);
 	_strcat(str, token);
 	_strcat(str, "/");
 	_strcat(str, av[0]);
-
 	str[len - 1] = '\0';
 
 	return (str);

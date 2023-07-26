@@ -4,14 +4,15 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
 
+#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <sys/stat.h>
 
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <errno.h>
 
 extern char **environ;
 
@@ -22,22 +23,22 @@ int _strlen(char *s);
 char *_strcat(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 char *_strdup(char *str);
-int _strpliter(char *s);
+int _strplitter(char *s);
 
 /* Shell Core */
 
 int prompt(void);
-char *reader(void);
-char *path(char **av, char *PATH, char *cpy);
+char *_reader(void);
+char *_path(char **av, char *PATH, char *copy);
 int _forku(char **av, char *buff, char *path);
 int builtinschecker(char **av, char *buff, int status);
 
 /* Path Finder */
 
 char **tokenizer(char *buff);
-int splitter(char *s);
-int comparepath(const char *str1, const char *str2);
-char *completeconcat(char *str, char **av, char *token);
+int _splitter(char *s);
+int _comparepath(const char *str1, const char *str2);
+char *_completeconcat(char *str, char **av, char *token);
 
 /* and some more functions */
 

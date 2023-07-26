@@ -12,7 +12,7 @@ char *_getenviron(const char *name)
 
 	for (a = 0; environ[a]; a++)
 	{
-		env = comparepath(name, environ[a]);
+		env = _comparepath(name, environ[a]);
 		if (env == 0)
 		{
 			return (environ[a]);
@@ -41,11 +41,10 @@ int _environ(void)
  */
 void _puts(char *str)
 {
-	while (*str != '\0')
-	{
-		_putchar(*str + 0);
-		str++;
-	}
+	int s;
+
+	for (s = 0; str[s] != '\0'; s++)
+		_putchar(str[s]);
 	_putchar('\n');
 }
 /**
@@ -71,7 +70,7 @@ int builtinschecker(char **av, char *buff, int exitstatus)
 {
 	int i;
 
-	if (_strcmp(av[0], "env") == 0)
+	if (_strcmp(av[0], "environ") == 0)
 	{
 		_environ();
 		for (i = 0; av[i]; i++)

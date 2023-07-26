@@ -9,7 +9,7 @@
 char *_strdup(char *str)
 {
 	char *dup_str;
-	int length, i;
+	int length;
 
 	if (str == NULL)
 		return (NULL);
@@ -19,11 +19,11 @@ char *_strdup(char *str)
 	if (dup_str == NULL)
 		return (NULL);
 
-	for (i = 0; i <= length; i++)
+	for (length = 0; str[length] != '\0'; length++)
 	{
-		dup_str[i] = str[i];
+		dup_str[length] = str[length];
 	}
-
+	dup_str[length] = '\0';
 	return (dup_str);
 }
 /**
@@ -34,18 +34,15 @@ char *_strdup(char *str)
  */
 int _strcmp(char *s1, char *s2)
 {
-	int c;
-
-	c = 0;
-	while (s1[c] != '\0' && s2[c] != '\0')
+	while ((*s1 != '\0' && *s2) && *s1 == *s2)
 	{
-		if (s1[c] != s2[c])
-		{
-			return (s1[c] - s2[c]);
-		}
-		c++;
+		s1++;
+		s2++;
 	}
-	return (0);
+	if (*s1 == *s2)
+		return (0);
+	else
+		return (*s1 - *s2);
 }
 /**
  * _strcat - it concatenates two strings
@@ -84,12 +81,12 @@ int _strlen(char *s)
 }
 
 /**
- * _strpliter - gets number of words in string
+ * _strplitter - gets number of words in string
  * @s: pointer to string
  *
  * Return: number of words
  */
-int _strpliter(char *s)
+int _strplitter(char *s)
 {
 	int i, flag = 1, counter = 0;
 
@@ -97,10 +94,10 @@ int _strpliter(char *s)
 	{
 		if (s[i] != ' ' && flag == 1)
 		{
-			counter = counter + 1;
+			counter += 1;
 			flag = 0;
 		}
-		if (s[i] == ' ')
+		if (s[i + 1] == ' ')
 			flag = 1;
 	}
 	return (counter);

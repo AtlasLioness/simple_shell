@@ -20,11 +20,11 @@ int prompt(void)
 }
 
 /**
- * reader - reads input
+ * _reader - reads input
  *
  * Return: pointer to read content
  */
-char *reader(void)
+char *_reader(void)
 {
 	size_t n = 0;
 	char *buff = NULL;
@@ -40,10 +40,8 @@ char *reader(void)
 		exit(0);
 	}
 
-	counter = counter - 1;
-	if (buff[counter] == '\t' || buff[counter] == '\n')
-		buff[counter] = '\0';
-
+	if (buff[counter - 1] == '\t' || buff[counter - 1] == '\n')
+		buff[counter - 1] = '\0';
 	for (i = 0; buff[i]; i++)
 	{
 		if (buff[i] == '#' && buff[i - 1] == ' ')
@@ -56,31 +54,31 @@ char *reader(void)
 }
 
 /**
- * path - gets the full path to a command
+ * _path - gets the full path to a command
  * @av: pointer to the command and options
  * @PATH: pointer to PATH
  * @cpy: pointer to copy of PATH
  *
  * Return: pointer to full path to the commands exe file
  */
-char *path(char **av, char *PATH, char *cpy)
+char *_path(char **av, char *PATH, char *copy)
 {
 	struct stat s;
-	char *fullpath = NULL, *buff = NULL, *token;
+	char *path = NULL, *constr = NULL, *token;
 	static char temp[256];
 	int i = 0, tokenlen = 0, counter = 0, flag = 0;
 
-	cpy = NULL;
-	cpy = _strdup(PATH);
-	counter = splitter(cpy);
-	token = strtok(cpy, ": =");
+	copy = NULL;
+	copy = _strdup(PATH);
+	counter = _splitter(copy);
+	token = strtok(copy, ": =");
 
 	while (token != NULL)
 	{
-		buff = completeconcat(temp, av, token);
-		if (stat(buff, &s) == 0)
+		constr = _completeconcat(temp, av, token);
+		if (stat(constr, &s) == 0)
 		{
-			fullpath = (buff);
+			path = (constr);
 			flag = 1;
 			break;
 		}
@@ -91,7 +89,7 @@ char *path(char **av, char *PATH, char *cpy)
 			{
 				if (stat(av[0], &s) == 0)
 				{
-					fullpath = strdup(av[0]);
+					path = av[0];
 					flag = 1;
 					break;
 				}
@@ -101,10 +99,10 @@ char *path(char **av, char *PATH, char *cpy)
 		token = strtok(NULL, ":");
 	}
 	if (flag == 0)
-		fullpath = _strdup(av[0]);
+		path = av[0];
 
-	free(cpy);
-	return (fullpath);
+	free(copy);
+	return (path);
 }
 
 /**
@@ -142,7 +140,9 @@ int _forku(char **av, char *buff, char *path)
 	}
 	wait(&status);
 	if (WIFEXITED(status))
+	{
 		exitstatus = WEXITSTATUS(status);
+	}
 
 	for (i = 0; av[i]; i++)
 		free(av[i]);
