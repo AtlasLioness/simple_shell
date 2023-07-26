@@ -57,7 +57,7 @@ char *_reader(void)
  * _path - gets the full path to a command
  * @av: pointer to the command and options
  * @PATH: pointer to PATH
- * @cpy: pointer to copy of PATH
+ * @copy: pointer to copy of PATH
  *
  * Return: pointer to full path to the commands exe file
  */
