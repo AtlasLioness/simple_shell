@@ -85,10 +85,12 @@ int _comparepath(const char *str1, const char *str2)
 
 char *_completeconcat(char *str, char **av, char *token)
 {
-	int len = 0;
+	int len, len1, len2;
 
 	_memset(str, 0, 256);
-	len = _strlen(token) + _strlen(av[0] + 2);
+	len1 = _strlen(token);
+	len2 = _strlen(av[0]);
+	len = len1 + len2 + 2;
 	_strcat(str, token);
 	_strcat(str, "/");
 	_strcat(str, av[0]);
