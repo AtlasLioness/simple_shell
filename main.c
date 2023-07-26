@@ -33,6 +33,7 @@ int main(void)
 			fullpath = _path(av, PATH);
 			if (builtinschecker(av, buff, exitstatus) == 1)
 			{
+				free(fullpath);
 				free(buff);
 				continue;
 			}
@@ -41,5 +42,6 @@ int main(void)
 		else
 			free(buff);
 	}
+	free(PATH);
 	return (0);
 }
