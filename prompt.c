@@ -6,8 +6,8 @@
  */
 int prompt(void)
 {
-	char *sign = "$ ";
 	ssize_t counter = 0;
+	char *sign = "$ ";
 
 	if (isatty(STDIN_FILENO) == 1)
 	{
@@ -15,6 +15,7 @@ int prompt(void)
 		if (counter == -1)
 			exit(0);
 	}
+
 	return (0);
 }
 
@@ -79,7 +80,7 @@ char *path(char **av, char *PATH, char *cpy)
 		buff = completeconcat(temp, av, token);
 		if (stat(buff, &s) == 0)
 		{
-			fullpath = buff;
+			fullpath = (buff);
 			flag = 1;
 			break;
 		}
@@ -87,19 +88,20 @@ char *path(char **av, char *PATH, char *cpy)
 		{
 			tokenlen = _strlen(token);
 			if (token[tokenlen + 1] == ':')
+			{
 				if (stat(av[0], &s) == 0)
 				{
-					fullpath = av[0];
+					fullpath = strdup(av[0]);
 					flag = 1;
 					break;
 				}
+			}
 		}
 		i++;
 		token = strtok(NULL, ":");
 	}
-
 	if (flag == 0)
-		fullpath = av[0];
+		fullpath = _strdup(av[0]);
 
 	free(cpy);
 	return (fullpath);

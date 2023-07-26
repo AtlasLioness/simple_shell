@@ -8,8 +8,8 @@
  */
 char *_strdup(char *str)
 {
-	int length;
 	char *dup_str;
+	int length, i;
 
 	if (str == NULL)
 		return (NULL);
@@ -19,11 +19,10 @@ char *_strdup(char *str)
 	if (dup_str == NULL)
 		return (NULL);
 
-	for (length = 0; str[length] != '\0'; length++)
+	for (i = 0; i <= length; i++)
 	{
-		dup_str[length] = str[length];
+		dup_str[i] = str[i];
 	}
-	dup_str[length] = '\0';
 
 	return (dup_str);
 }
@@ -74,7 +73,7 @@ char *_strcat(char *dest, char *src)
  */
 int _strlen(char *s)
 {
-	int longi;
+	int longi = 0;
 
 	while (*s != '\0')
 	{
@@ -101,7 +100,7 @@ int _strpliter(char *s)
 			counter = counter + 1;
 			flag = 0;
 		}
-		if (s[i + 1] == ' ')
+		if (s[i] == ' ')
 			flag = 1;
 	}
 	return (counter);
