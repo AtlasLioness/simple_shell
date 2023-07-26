@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdlib.h>
 /**
  * main - shell program
  *
@@ -7,7 +8,7 @@
 int main(void)
 {
 	char *PATH = NULL, *fullpath = NULL;
-	char *buff = NULL, *copy = NULL;
+	char *buff = NULL;
 	char **av;
 	int exitstatus = 0;
 
@@ -29,9 +30,12 @@ int main(void)
 				free(buff);
 				continue;
 			}
-			fullpath = _path(av, PATH, copy);
+			fullpath = _path(av, PATH);
 			if (builtinschecker(av, buff, exitstatus) == 1)
+			{
+				free(buff);
 				continue;
+			}
 			exitstatus = _forku(av, buff, fullpath);
 		}
 		else

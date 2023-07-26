@@ -10,9 +10,7 @@
 #include <sys/wait.h>
 
 #include <sys/stat.h>
-#include <fcntl.h>
 #include <signal.h>
-#include <errno.h>
 
 extern char **environ;
 
@@ -29,10 +27,10 @@ int _strplitter(char *s);
 
 int prompt(void);
 char *_reader(void);
-char *_path(char **av, char *PATH, char *copy);
+char *_path(char **av, char *PATH);
 int _forku(char **av, char *buff, char *path);
 int builtinschecker(char **av, char *buff, int status);
-
+int _is_whitespace(char c);
 /* Path Finder */
 
 char **tokenizer(char *buff);

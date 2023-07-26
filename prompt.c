@@ -1,4 +1,19 @@
 #include "main.h"
+
+/**
+ * _is_whitespace - check if character is a whitespace
+ * @c: character to check
+ *
+ * Return: 1 if it is a whitespace char or 0 if not
+ */
+int _is_whitespace(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	else
+		return (0);
+}
+
 /**
  * prompt - displays the prompt
  *
@@ -40,16 +55,23 @@ char *_reader(void)
 		exit(0);
 	}
 
-	if (buff[counter - 1] == '\t' || buff[counter - 1] == '\n')
-		buff[counter - 1] = '\0';
-	for (i = 0; buff[i]; i++)
+	i = counter - 1;
+	while (i > 0 && _is_whitespace(buff[i]))
 	{
-		if (buff[i] == '#' && buff[i - 1] == ' ')
-		{
-			buff[i] = '\0';
-			break;
-		}
+		buff[i] = '\0';
+		i--;
 	}
+
+	/*if (buff[counter - 1] == '\t' || buff[counter - 1] == '\n')*/
+		/*buff[counter - 1] = '\0';*/
+	/*for (i = 0; buff[i]; i++)*/
+	/*{*/
+		/*if (buff[i] == '#' && buff[i - 1] == ' ')*/
+		/*{*/
+			/*buff[i] = '\0';*/
+			/*break;*/
+		/*}*/
+	/*}*/
 	return (buff);
 }
 
@@ -57,14 +79,13 @@ char *_reader(void)
  * _path - gets the full path to a command
  * @av: pointer to the command and options
  * @PATH: pointer to PATH
- * @copy: pointer to copy of PATH
  *
  * Return: pointer to full path to the commands exe file
  */
-char *_path(char **av, char *PATH, char *copy)
+char *_path(char **av, char *PATH)
 {
 	struct stat s;
-	char *path = NULL, *constr = NULL, *token;
+	char *path = NULL, *constr = NULL, *token, *copy;
 	static char temp[256];
 	int i = 0, tokenlen = 0, counter = 0, flag = 0;
 
